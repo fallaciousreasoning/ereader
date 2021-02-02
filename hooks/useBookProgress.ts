@@ -8,11 +8,13 @@ export default (rendition: Rendition) => {
     useEffect(() => {
         if (!rendition) return;
 
-        rendition.on('relocated', (location: Location) => {
+        const listener = (location: Location) => {
             const percent = rendition.book.locations.percentageFromCfi(location.start.cfi);
-            console.log(location, percent)
             setProgress(percent)
-        });
+        };
+        rendition.on('relocated', listener);
+
+        return () => rendition.off('relocated', listener);
     }, [rendition]);
 
     return progress;
