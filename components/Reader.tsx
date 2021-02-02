@@ -1,7 +1,7 @@
 import * as Epub from "epubjs/dist/epub"
 import type { Book, Rendition } from 'epubjs';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import useBookProgress from "../hooks/useBookProgress";
+import useBookPercentage from "../hooks/useBookPercentage";
 import { time } from "../utils/time";
 import { resolvable } from "../utils/resolvable";
 import { getBookProgress, initializeLocations } from "../data/db";
@@ -32,7 +32,7 @@ export default function Reader(props: Props) {
         rendition.next();
     }, [rendition]);
 
-    const progress = useBookProgress(rendition);
+    const progress = useBookPercentage(rendition);
 
     useEffect(() => {
         if (!rendition) return;
