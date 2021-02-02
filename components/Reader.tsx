@@ -5,6 +5,7 @@ import useBookPercentage from "../hooks/useBookPercentage";
 import { time } from "../utils/time";
 import { resolvable } from "../utils/resolvable";
 import { getBookProgress, initializeLocations } from "../data/db";
+import StoreBookProgress from "./StoreBookProgress";
 
 (window as any).Epub = Epub;
 
@@ -58,6 +59,7 @@ export default function Reader(props: Props) {
         getBookProgress(book).then(cfi => rendition.display(cfi));
     }, [book])
     return <div className="w-screen h-screen bg-red-800">
+        <StoreBookProgress rendition={rendition}/>
         <div className="absolute top-0 bottom-0 left-0 right-0" ref={bookElRef}>
 
         </div>

@@ -41,7 +41,7 @@ export const initializeLocations = async (book: Book) => {
 
 export const saveProgress = async (rendition: Rendition) => {
     const id = await getBookId(rendition.book);
-    await db.progresses.put({ bookId: id, lastLocation: rendition.currentLocation().cfi })
+    await db.progresses.put({ bookId: id, lastLocation: (rendition.currentLocation() as any).start.cfi })
 }
 
 export const getBookProgress = async (book: Book) => {
