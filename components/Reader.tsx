@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import useBookProgress from "../hooks/useBookProgress";
 import { time } from "../utils/time";
 import { resolvable } from "../utils/resolvable";
+import { initializeLocations } from "../data/db";
 
 (window as any).Epub = Epub;
 
@@ -18,11 +19,8 @@ interface Props {
 
 const prepareEbook = async (rendition: Rendition) => {
     await rendition.book.ready;
-    const locations = await rendition.book.locations.generate(1600);
     
-    const json = time('Serializing locations', () => JSON.stringify(locations));
-    const deserialized = time("Deserializing locations", () => JSON.parse(json));
-    console.log(json)
+    initializeLocations(rendition.book);
 }
 
 export default function Reader(props: Props) {
@@ -43,6 +41,8 @@ export default function Reader(props: Props) {
         if (!rendition) return;
 
         const handler = (e: KeyboardEvent) => {
+            if (!rendition) return;
+
             if (nextKeys.some(k => k === e.keyCode)) rendition.next();
             if (previousKeys.some(k => k ===e.keyCode)) rendition.prev();
         };
