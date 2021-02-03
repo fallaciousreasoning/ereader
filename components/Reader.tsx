@@ -59,7 +59,7 @@ export default function Reader(props: Props) {
 
         getBookProgress(book).then(cfi => rendition.display(cfi));
     }, [book])
-    return <div className="w-screen h-screen bg-red-800">
+    return <div className="w-screen h-screen">
         <StoreBookProgress rendition={rendition}/>
         <div className="absolute top-0 bottom-0 left-0 right-0" ref={bookElRef}>
 
