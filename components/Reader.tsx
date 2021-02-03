@@ -6,6 +6,7 @@ import { time } from "../utils/time";
 import { resolvable } from "../utils/resolvable";
 import { getBookProgress, initializeLocations } from "../data/db";
 import StoreBookProgress from "./StoreBookProgress";
+import ProgressBar from "./ProgressBar";
 
 (window as any).Epub = Epub;
 
@@ -64,7 +65,7 @@ export default function Reader(props: Props) {
 
         </div>
         <div className="absolute top-0 bottom-0 left-0 right-0" onClick={nextPage}>
-            Progress: {progress}
+            <ProgressBar progress={progress}/>
         </div>
     </div>
 }
