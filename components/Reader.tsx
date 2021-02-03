@@ -4,9 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import useBookPercentage from "../hooks/useBookPercentage";
 import { time } from "../utils/time";
 import { resolvable } from "../utils/resolvable";
-import { getBookProgress, initializeLocations } from "../data/db";
+import { getBookFromSource, getBookProgress } from "../data/db";
 import StoreBookProgress from "./StoreBookProgress";
 import ProgressBar from "./ProgressBar";
+import { useBook } from "../hooks/usePromise";
 
 (window as any).Epub = Epub;
 
@@ -17,15 +18,9 @@ interface Props {
     bookUrl: string;
 }
 
-const prepareEbook = async (rendition: Rendition) => {
-    await rendition.book.ready;
-    
-    initializeLocations(rendition.book);
-}
-
 export default function Reader(props: Props) {
     const bookElRef = useRef<HTMLDivElement>();
-    const book = useMemo(() => process.browser ? new Epub.Book(props.bookUrl) : null, [props.bookUrl]) as Book;
+    const book = useBook(props.bookUrl);
     const [rendition, setRendition] = useState<Rendition>(null);
     (window as any).rendition = rendition;
     (window as any).book = book;
@@ -55,8 +50,6 @@ export default function Reader(props: Props) {
         
         const rendition = book.renderTo(bookElRef.current);
         setRendition(rendition);
-        prepareEbook(rendition);
-
         getBookProgress(book).then(cfi => rendition.display(cfi));
     }, [book])
     return <div className="w-screen h-screen">
