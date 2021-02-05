@@ -2,11 +2,17 @@ import { Book } from "epubjs";
 import { useEffect, useState } from "react"
 import { getBookFromSource } from "../data/db";
 
-export const useBook = (source: string) => {
-    const [book, setBook] = useState<Book>()
+export const usePromise = <T>(promise: Promise<T> | (() => Promise<T>), dependencies: any[], defaultValue: T = undefined) => {
+    const [state, setState] = useState<T>(defaultValue);
     useEffect(() => {
-        getBookFromSource(source).then(book => setBook(book));
-    }, [source]);
+        let cancelled = false;
+        const p = typeof promise === "function" ? promise() : promise;
+        p.then(result => setState(result));
 
-    return book;
+        return () => cancelled = true;
+    }, dependencies);
+
+    return state;
 }
+
+export const useBook = (source: string) => usePromise(() => getBookFromSource(source), [source]);

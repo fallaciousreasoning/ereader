@@ -28,6 +28,7 @@ class Database extends Dexie {
 }
 
 const db = new Database();
+(window as any).db = db;
 
 export const saveBookProgress = async (rendition: Rendition) => {
     await db.progresses.put({ bookId: rendition.book['id'], lastLocation: (rendition.currentLocation() as any).start.cfi })
@@ -38,7 +39,6 @@ export const getBookProgress = async (book: Book) => {
 }
 
 const bookFromEntry = async (entry: BookEntry) => {
-    const url = URL.createObjectURL(entry.data);
     const book = new Epub.Book(entry.data) as Book & { id: string };
     book.id = entry.bookId;
 
@@ -66,6 +66,14 @@ export const getBookFromSource = async (url: string) => {
         const locations = await locationsPromise;
         db.books.update(entry.bookId, { locations });
     });
+
+    const metadata = (ebook as any)?.package?.metadata as Metadata;
+    metadata.bookId = url;
+    await db.metadata.add(metadata);
     
     return ebook;
+}
+
+export const metadataForBooks = async () => {
+    return db.metadata.toArray();
 }

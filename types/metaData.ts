@@ -1,4 +1,5 @@
 export interface Metadata {
+    bookId: string;
     creator: string;
     description: string;
     direction: 'ltr' | 'rtl' | null;
