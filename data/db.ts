@@ -38,15 +38,28 @@ export const getBookProgress = async (book: Book) => {
     return (await db.progresses.get(book['id']))?.lastLocation;
 }
 
+const loadLocations = async (book: Book, entry: BookEntry) => {
+    await book.ready;
+
+    if (!entry.locations.length) {
+        book.locations['pause'] = 10;
+        entry.locations = await book.locations.generate(1600) as any;
+        await db.books.put(entry);
+    }
+    else book.locations.load(entry.locations as any);
+}
+
 const bookFromEntry = async (entry: BookEntry) => {
     const book = new Epub.Book(entry.data) as Book & { id: string };
     book.id = entry.bookId;
 
-    book.locations.load(entry.locations as any);
+    loadLocations(book, entry);
     return book;
 }
 
 export const getBookFromSource = async (url: string) => {
+    if (!url) return null;
+
     let entry = await db.books.get(url);
     if (entry) return bookFromEntry(entry);
     
@@ -60,11 +73,8 @@ export const getBookFromSource = async (url: string) => {
 
     await ebook.ready;
 
-    const locationsPromise = ebook.locations.generate(1600);
-
     db.books.add(entry).then(async () => {
-        const locations = await locationsPromise;
-        db.books.update(entry.bookId, { locations });
+        loadLocations(ebook, entry);
     });
 
     const metadata = (ebook as any)?.package?.metadata as Metadata;

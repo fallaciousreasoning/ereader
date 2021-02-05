@@ -4,7 +4,7 @@ import Reader from "../../components/Reader";
 
 export default function Read() {
     const router = useRouter();
-    const source = router.query.source.toString();
+    const source = router.query.source?.toString();
 
     return <div>
         <Reader bookUrl={source} />
