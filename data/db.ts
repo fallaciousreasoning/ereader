@@ -13,7 +13,7 @@ interface BookEntry {
 class Database extends Dexie {
     books: Dexie.Table<BookEntry, string>;
     metadata: Dexie.Table<Metadata, string>;
-    progresses: Dexie.Table<{ bookId: string, lastLocation: string }, string>;
+    progresses: Dexie.Table<{ bookId: string, lastLocation: string, percent: number }, string>;
 
     constructor() {
         super("store");
@@ -31,11 +31,19 @@ const db = new Database();
 (window as any).db = db;
 
 export const saveBookProgress = async (rendition: Rendition) => {
-    await db.progresses.put({ bookId: rendition.book['id'], lastLocation: (rendition.currentLocation() as any).start.cfi })
+    const location = (rendition.currentLocation() as any).start.cfi;
+    const percent = rendition.book.locations.percentageFromCfi(location);
+    await db.progresses.put({ bookId: rendition.book['id'], lastLocation: location, percent  })
 }
 
-export const getBookProgress = async (book: Book) => {
-    return (await db.progresses.get(book['id']))?.lastLocation;
+export const getBookProgress = async (book: Book | string) => {
+    const id = typeof book === "string" ? book : book['id'];
+    return (await db.progresses.get(id))?.lastLocation;
+}
+
+export const getBookPercent = async (book: Book | string) => {
+    const id = typeof book === "string" ? book : book['id'];
+    return (await db.progresses.get(id))?.percent || 0;
 }
 
 const loadLocations = async (book: Book, entry: BookEntry) => {
