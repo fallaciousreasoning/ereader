@@ -8,16 +8,17 @@ import { usePromise } from '../hooks/usePromise'
 export default function Home() {
   const metadata = usePromise(metadataForBooks, [], []);
   return (
-    <div>
+    <div className="p-4">
       <Head>
         <title>eReader</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="p-4">
+      <div>
         {metadata.map(meta => <BookCard metadata={meta} key={meta.bookId}/>)}
       </div>
-      <div>
+      <div className="mt-2">
+        <FilePicker />
       </div>
     </div>
   )
