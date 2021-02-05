@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
+import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
 import { metadataForBooks } from '../data/db';
 import { usePromise } from '../hooks/usePromise'
@@ -13,10 +14,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
-        {metadata.map(meta => <div key={meta.bookId}>
-          Foo: {meta.title}
-        </div>)}
+      <div className="p-4">
+        {metadata.map(meta => <BookCard metadata={meta} key={meta.bookId}/>)}
       </div>
       <div>
       </div>
