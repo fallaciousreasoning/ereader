@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
-import { metadataForBooks } from '../data/db';
+import { getBookFromSource, metadataForBooks } from '../data/db';
 import { usePromise } from '../hooks/usePromise'
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
         {metadata.map(meta => <BookCard metadata={meta} key={meta.bookId}/>)}
       </div>
       <div className="mt-2">
-        <FilePicker />
+        <FilePicker onPick={file => getBookFromSource(URL.createObjectURL(file))}/>
       </div>
     </div>
   )
