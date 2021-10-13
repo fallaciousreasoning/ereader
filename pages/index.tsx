@@ -1,12 +1,12 @@
+import { useLiveQuery } from 'dexie-react-hooks';
 import Head from 'next/head'
 import { useEffect } from 'react'
 import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
 import { getBookFromSource, metadataForBooks } from '../data/db';
-import { usePromise } from '../hooks/usePromise'
 
 export default function Home() {
-  const metadata = usePromise(metadataForBooks, [], []);
+  const metadata = useLiveQuery(metadataForBooks, []) || [];
   return (
     <div className="p-4">
       <Head>

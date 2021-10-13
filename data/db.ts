@@ -92,6 +92,6 @@ export const getBookFromSource = async (url: string) => {
     return ebook;
 }
 
-export const metadataForBooks = async () => {
+export const metadataForBooks = () => {
     return db.metadata.toArray();
 }
