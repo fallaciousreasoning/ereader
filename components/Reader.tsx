@@ -42,7 +42,7 @@ export default function Reader(props: Props) {
     }, [rendition])
 
     useEffect(() => {
-        if (!book) return;
+        if (!book || !bookElRef.current) return;
         
         const rendition = book.renderTo(bookElRef.current);
         setRendition(rendition);
