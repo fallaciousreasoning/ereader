@@ -12,6 +12,7 @@
     "dexie": "^3.1.0-alpha.10",
     "dexie-react-hooks": "^1.0.7",
     "epubjs": "^0.3.88",
+    "jszip": "^3.7.1",
     "next": "10.0.5",
     "postcss": "^8.2.4",
     "react": "17.0.1",
