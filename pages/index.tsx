@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-row gap-1 flex-wrap">
+      <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, 150px)', gridAutoRows: '200px'}}>
         {metadata.map(meta => <BookCard metadata={meta} key={meta.bookId}/>)}
       </div>
       <div className="mt-2">
