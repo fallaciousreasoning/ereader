@@ -1,15 +1,11 @@
-import * as Epub from "epubjs/dist/epub"
-import type { Book, Rendition } from 'epubjs';
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import type { Rendition } from 'epubjs';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { getBookProgress } from "../data/book";
 import useBookPercentage from "../hooks/useBookPercentage";
-import { time } from "../utils/time";
-import { resolvable } from "../utils/resolvable";
-import { getBookFromSource, getBookProgress } from "../data/book";
-import StoreBookProgress from "./StoreBookProgress";
-import ProgressBar from "./ProgressBar";
 import { useBook } from "../hooks/usePromise";
+import ProgressBar from "./ProgressBar";
+import StoreBookProgress from "./StoreBookProgress";
 
-(window as any).Epub = Epub;
 
 const nextKeys = [68, 39, 32, 40];
 const previousKeys = [65, 37, 38];

@@ -1,7 +1,6 @@
 import { Metadata } from "../types/metaData";
 import { Book, Rendition } from "epubjs";
 import { BookEntry, db } from "./db";
-import * as Epub from "epubjs/dist/epub"
 import { addBookImage } from "./image";
 
 export const saveBookProgress = async (rendition: Rendition) => {
@@ -32,7 +31,7 @@ const loadLocations = async (book: Book, entry: BookEntry) => {
 }
 
 const bookFromEntry = async (entry: BookEntry) => {
-    const book = new Epub.Book(entry.data) as Book & { id: string };
+    const book = new Book(entry.data as any) as Book & { id: string };
     book.id = entry.bookId;
 
     loadLocations(book, entry);
@@ -50,7 +49,7 @@ export const getBookFromSource = async (url: string) => {
 
     entry = { bookId: url, data: blob, locations: [] };
     
-    const ebook = new Epub.Book(blob) as Book & { id: string };
+    const ebook = new Book(blob as any) as Book & { id: string };
     ebook.id = url;
 
     await ebook.ready;
