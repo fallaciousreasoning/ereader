@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import useBookPercentage from "../hooks/useBookPercentage";
 import { time } from "../utils/time";
 import { resolvable } from "../utils/resolvable";
-import { getBookFromSource, getBookProgress } from "../data/db";
+import { getBookFromSource, getBookProgress } from "../data/book";
 import StoreBookProgress from "./StoreBookProgress";
 import ProgressBar from "./ProgressBar";
 import { useBook } from "../hooks/usePromise";

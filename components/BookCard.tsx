@@ -1,7 +1,7 @@
 import { Metadata } from "../types/metaData";
 import Link from 'next/link';
 import ProgressBar from "./ProgressBar";
-import { getBookPercent, getBookProgress } from "../data/db";
+import { getBookPercent } from "../data/book";
 import { usePromise } from "../hooks/usePromise";
 interface Props {
     metadata: Metadata;

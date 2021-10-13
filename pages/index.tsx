@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
-import { getBookFromSource, metadataForBooks } from '../data/db';
+import { getBookFromSource, metadataForBooks } from '../data/book';
 
 export default function Home() {
   const metadata = useLiveQuery(metadataForBooks, []) || [];

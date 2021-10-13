@@ -1,6 +1,5 @@
-import { Book } from "epubjs";
 import { useEffect, useState } from "react"
-import { getBookFromSource } from "../data/db";
+import { getBookFromSource } from "../data/book";
 
 export const usePromise = <T>(promise: Promise<T> | (() => Promise<T>), dependencies: any[], defaultValue: T = undefined) => {
     const [state, setState] = useState<T>(defaultValue);

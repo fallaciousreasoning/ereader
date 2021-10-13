@@ -1,6 +1,6 @@
 import { Book, Rendition } from "epubjs";
 import { useEffect } from "react";
-import { saveBookProgress } from "../data/db";
+import { saveBookProgress } from "../data/book";
 
 export default (props: { rendition: Rendition }) => {
 
