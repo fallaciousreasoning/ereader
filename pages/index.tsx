@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row gap-1 flex-wrap">
         {metadata.map(meta => <BookCard metadata={meta} key={meta.bookId}/>)}
       </div>
       <div className="mt-2">
