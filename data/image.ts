@@ -1,3 +1,5 @@
+import { useLiveQuery } from 'dexie-react-hooks';
+import { useMemo } from 'react';
 import { BookEntry, db } from './db';
 
 export const addBookImage = async (info: BookEntry, ebook: ePub.Book) => {
@@ -8,9 +10,8 @@ export const addBookImage = async (info: BookEntry, ebook: ePub.Book) => {
     return db.images.add({ id: info.bookId, image: blob });
 }
 
-export const getCachedImageUrl = async (id: string) => {
-    const entry = await db.images.get(id);
-    if (!entry) return null;
-
-    return URL.createObjectURL(entry.image);
+export const useCachedImageUrl = (id: string) => {
+    const query = useLiveQuery(() => db.images.get(id), [id]);
+    const blobUrl = useMemo(() => query && URL.createObjectURL(query.image), [query?.image]);
+    return blobUrl;
 }
