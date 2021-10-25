@@ -1,4 +1,4 @@
-import { Book, Location, Rendition } from 'epubjs';
+import { Book, Location, Rendition } from 'epubjs/lib';
 import { useEffect, useState } from 'react';
 import { time } from '../utils/time';
 

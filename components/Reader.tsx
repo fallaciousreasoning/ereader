@@ -1,4 +1,4 @@
-import type { Rendition } from 'epubjs';
+import type { Rendition } from 'epubjs/lib';
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getBookProgress } from "../data/book";
 import useBookPercentage from "../hooks/useBookPercentage";
@@ -18,8 +18,8 @@ export default function Reader(props: Props) {
     const bookElRef = useRef<HTMLDivElement>();
     const book = useBook(props.bookUrl);
     const [rendition, setRendition] = useState<Rendition>(null);
-    (window as any).rendition = rendition;
-    (window as any).book = book;
+    globalThis.rendition = rendition;
+    globalThis.book = book;
     const nextPage = useCallback((e) => {
         if (!rendition) return;
         rendition.next();
@@ -36,9 +36,9 @@ export default function Reader(props: Props) {
             if (nextKeys.some(k => k === e.keyCode)) rendition.next();
             if (previousKeys.some(k => k ===e.keyCode)) rendition.prev();
         };
-        window.addEventListener('keydown', handler);
+        globalThis.addEventListener('keydown', handler);
 
-        return () => window.removeEventListener('keydown', handler);
+        return () => globalThis.removeEventListener('keydown', handler);
     }, [rendition])
 
     useEffect(() => {

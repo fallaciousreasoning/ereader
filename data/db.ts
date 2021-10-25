@@ -27,4 +27,4 @@ class Database extends Dexie {
 }
 
 export const db = new Database();
-(window as any).db = db;
+globalThis.db = db;
