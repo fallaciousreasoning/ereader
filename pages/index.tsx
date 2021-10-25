@@ -13,11 +13,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="grid gap-2 justify-center" style={{ gridTemplateColumns: 'repeat(auto-fill, 150px)', gridAutoRows: '200px'}}>
-        {metadata.map(meta => <BookCard metadata={meta} key={meta.bookId}/>)}
+      <div className="grid gap-2 justify-items-stretch" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(150px, auto))', gridAutoRows: 'minmax(200px, auto)' }}>
+        {metadata.map(meta => <div style={{ aspectRatio: '3 / 4' }}>
+          <BookCard metadata={meta} key={meta.bookId} />
+        </div>)}
       </div>
       <div className="mt-2">
-        <FilePicker onPick={file => getBookFromSource(URL.createObjectURL(file))}/>
+        <FilePicker onPick={file => getBookFromSource(URL.createObjectURL(file))} />
       </div>
     </div>
   )
