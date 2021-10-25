@@ -1,6 +1,5 @@
-import { Book, Location, Rendition } from 'epubjs';
+import { Location, Rendition } from 'epubjs';
 import { useEffect, useState } from 'react';
-import { time } from '../utils/time';
 
 export default (rendition: Rendition) => {
     const [percent, setPercent] = useState(0);
