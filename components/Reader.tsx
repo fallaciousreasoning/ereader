@@ -1,5 +1,5 @@
 import type { Rendition } from 'epubjs';
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { getBookProgress } from "../data/book";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
@@ -20,9 +20,18 @@ export default function Reader(props: Props) {
     const [rendition, setRendition] = useState<Rendition>(null);
     globalThis.rendition = rendition;
     globalThis.book = book;
-    const nextPage = useCallback((e) => {
+    const nextPage = useCallback((e: React.MouseEvent) => {
         if (!rendition) return;
-        rendition.next();
+
+        const bookBounds = bookElRef.current?.getBoundingClientRect();
+        if (!bookBounds) return;
+
+        console.log("Clicked?");
+
+        // If the click is on the left side, go back. Otherwise go forward.
+        if (e.clientX < bookBounds.x + bookBounds.width/2)
+            rendition.prev();
+        else rendition.next();
     }, [rendition]);
 
     const progress = useBookPercentage(rendition);
