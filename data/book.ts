@@ -2,6 +2,7 @@ import { Metadata } from "../types/metaData";
 import { Book, Rendition } from "epubjs";
 import { BookEntry, db } from "./db";
 import { addBookImage } from "./image";
+import { Md5 } from "ts-md5";
 
 export const saveBookProgress = async (rendition: Rendition) => {
     const location = (rendition.currentLocation() as any).start.cfi;
@@ -38,19 +39,31 @@ const bookFromEntry = async (entry: BookEntry) => {
     return book;
 }
 
-export const getBookFromSource = async (url: string) => {
+export const importBook = async (url: string) => {
     if (!url) return null;
 
-    let entry = await db.books.get(url);
-    if (entry) return bookFromEntry(entry);
-    
     const response = await fetch(url);
     const blob = await response.blob();
+    return importBookFromBlob(blob);
+}
 
-    entry = { bookId: url, data: blob, locations: [] };
-    
+export const getBookFromId = async (id: string) => {
+    const entry = await db.books.get(id);
+    return bookFromEntry(entry);
+}
+
+export const importBookFromBlob = async (blob: Blob) => {
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    const id = new Md5().appendByteArray(bytes).end().toString();
+
+    const existing = await db.books.get(id);
+    if (existing) {
+        return existing;
+    }
+
+    const entry = { bookId: id, data: blob, locations: [] };    
     const ebook = new Book(blob as any) as Book & { id: string };
-    ebook.id = url;
+    ebook.id = id;
 
     await ebook.ready;
 
@@ -59,7 +72,7 @@ export const getBookFromSource = async (url: string) => {
     });
 
     const metadata = (ebook as any)?.package?.metadata as Metadata;
-    metadata.bookId = url;
+    metadata.bookId = id;
     await db.metadata.add(metadata);
 
     // No need to wait.

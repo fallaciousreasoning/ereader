@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import Head from 'next/head'
 import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
-import { getBookFromSource, metadataForBooks } from '../data/book';
+import { importBook, metadataForBooks } from '../data/book';
 
 const gridStyle = { gridTemplateColumns: 'repeat(auto-fill, minmax(150px, auto))', gridAutoRows: 'minmax(200px, auto)' };
 const aspectRatio = { aspectRatio: '3/4'};
@@ -21,7 +21,7 @@ export default function Home() {
         </div>)}
       </div>
       <div className="mt-2">
-        <FilePicker onPick={file => getBookFromSource(URL.createObjectURL(file))} />
+        <FilePicker onPick={file => importBook(URL.createObjectURL(file))} />
       </div>
     </div>
   )

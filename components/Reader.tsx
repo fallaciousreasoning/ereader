@@ -11,12 +11,12 @@ const nextKeys = [68, 39, 32, 40];
 const previousKeys = [65, 37, 38];
 
 interface Props {
-    bookUrl: string;
+    id: string;
 }
 
 export default function Reader(props: Props) {
     const bookElRef = useRef<HTMLDivElement>();
-    const book = useBook(props.bookUrl);
+    const book = useBook(props.id);
     const [rendition, setRendition] = useState<Rendition>(null);
     globalThis.rendition = rendition;
     globalThis.book = book;
@@ -25,8 +25,6 @@ export default function Reader(props: Props) {
 
         const bookBounds = bookElRef.current?.getBoundingClientRect();
         if (!bookBounds) return;
-
-        console.log("Clicked?");
 
         // If the click is on the left side, go back. Otherwise go forward.
         if (e.clientX < bookBounds.x + bookBounds.width/2)

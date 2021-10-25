@@ -18,7 +18,8 @@
     "postcss": "^8.2.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.0.2",
+    "ts-md5": "^1.2.8"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",

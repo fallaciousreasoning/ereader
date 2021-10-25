@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getBookFromSource } from "../data/book";
+import { getBookFromId } from "../data/book";
 
 export const usePromise = <T>(promise: Promise<T> | (() => Promise<T>), dependencies: any[], defaultValue: T = undefined) => {
     const [state, setState] = useState<T>(defaultValue);
@@ -14,4 +14,4 @@ export const usePromise = <T>(promise: Promise<T> | (() => Promise<T>), dependen
     return state;
 }
 
-export const useBook = (source: string) => usePromise(() => getBookFromSource(source), [source]);
+export const useBook = (id: string) => usePromise(() => getBookFromId(id), [id]);

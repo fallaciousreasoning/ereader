@@ -7,6 +7,6 @@ export default function Read() {
     const source = router.query.source?.toString();
 
     return <div>
-        <Reader bookUrl={source} />
+        <Reader id={source} />
     </div>
 };
