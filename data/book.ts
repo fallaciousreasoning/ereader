@@ -1,5 +1,5 @@
 import { Metadata } from "../types/metaData";
-import { Book, Rendition } from "epubjs/lib";
+import { Book, Rendition } from "epubjs";
 import { BookEntry, db } from "./db";
 import { addBookImage } from "./image";
 

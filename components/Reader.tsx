@@ -1,4 +1,4 @@
-import type { Rendition } from 'epubjs/lib';
+import type { Rendition } from 'epubjs';
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getBookProgress } from "../data/book";
 import useBookPercentage from "../hooks/useBookPercentage";

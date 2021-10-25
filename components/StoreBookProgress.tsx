@@ -1,4 +1,4 @@
-import { Book, Rendition } from "epubjs/lib";
+import { Book, Rendition } from "epubjs";
 import { useEffect } from "react";
 import { saveBookProgress } from "../data/book";
 
