@@ -4,6 +4,8 @@ import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
 import { getBookFromSource, metadataForBooks } from '../data/book';
 
+const gridStyle = { gridTemplateColumns: 'repeat(auto-fill, minmax(150px, auto))', gridAutoRows: 'minmax(200px, auto)' };
+const aspectRatio = { aspectRatio: '3/4'};
 export default function Home() {
   const metadata = useLiveQuery(metadataForBooks, []) || [];
   return (
@@ -13,8 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="grid gap-2 justify-items-stretch" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(150px, auto))', gridAutoRows: 'minmax(200px, auto)' }}>
-        {metadata.map(meta => <div style={{ aspectRatio: '3 / 4' }}>
+      <div className="grid gap-2 justify-items-stretch" style={gridStyle}>
+        {metadata.map(meta => <div style={aspectRatio} key={meta.bookId}>
           <BookCard metadata={meta} key={meta.bookId} />
         </div>)}
       </div>
