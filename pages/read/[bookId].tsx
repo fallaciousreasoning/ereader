@@ -4,9 +4,9 @@ import Reader from "../../components/Reader";
 
 export default function Read() {
     const router = useRouter();
-    const source = router.query.source?.toString();
+    const bookId = router.query.bookId?.toString();
 
     return <div>
-        <Reader id={source} />
+        {bookId && <Reader id={bookId} />}
     </div>
 };
