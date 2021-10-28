@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { getBookProgress } from "../data/book";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
+import { addTapEmitter } from '../utils/gestures';
 import ProgressBar from "./ProgressBar";
 import StoreBookProgress from "./StoreBookProgress";
 
@@ -44,10 +45,10 @@ export default function Reader(props: Props) {
         };
 
         rendition.on('keyup', keyboardHandler);
-        rendition.on('click', mouseHandler);
+        rendition.on('tap', mouseHandler);
         return () => {
             rendition.off('keyup', keyboardHandler);
-            rendition.off('click', mouseHandler);
+            rendition.off('tap', mouseHandler);
         };
     }, [rendition])
 
@@ -56,6 +57,7 @@ export default function Reader(props: Props) {
 
         const rendition = book.renderTo(bookElRef.current);
         setRendition(rendition);
+        addTapEmitter(rendition);
         getBookProgress(book).then(async cfi => {
             await rendition.display(cfi);
 
