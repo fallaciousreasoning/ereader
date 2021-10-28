@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { getBookProgress } from "../data/book";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
-import { addTapEmitter } from '../utils/gestures';
+import { addSwipeEmitter, addTapEmitter, Direction } from '../utils/gestures';
 import ProgressBar from "./ProgressBar";
 import StoreBookProgress from "./StoreBookProgress";
 
@@ -36,7 +36,6 @@ export default function Reader(props: Props) {
             if (!bookBounds) return;
 
             const x = e.screenX - window.screenX;
-            const y = e.screenY - window.screenY;
 
             // If the click is on the left side, go back. Otherwise go forward.
             if (x < bookBounds.x + bookBounds.width / 2)
@@ -44,11 +43,18 @@ export default function Reader(props: Props) {
             else rendition.next();
         };
 
+        const swipeHandler = (e: { direction: Direction}) => {
+            if (e.direction == Direction.Left) rendition.next();
+            if (e.direction == Direction.Right) rendition.prev();
+        }
+
         rendition.on('keyup', keyboardHandler);
         rendition.on('tap', mouseHandler);
+        rendition.on('swipe', swipeHandler);
         return () => {
             rendition.off('keyup', keyboardHandler);
             rendition.off('tap', mouseHandler);
+            rendition.off('swipe', swipeHandler);
         };
     }, [rendition])
 
@@ -58,6 +64,7 @@ export default function Reader(props: Props) {
         const rendition = book.renderTo(bookElRef.current);
         setRendition(rendition);
         addTapEmitter(rendition);
+        addSwipeEmitter(rendition);
         getBookProgress(book).then(async cfi => {
             await rendition.display(cfi);
 
