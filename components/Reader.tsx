@@ -4,6 +4,7 @@ import { getBookProgress } from "../data/book";
 import useBookInteractions from '../hooks/useBookInteractions';
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
+import useRendition from '../hooks/useRendition';
 import { addSwipeEmitter, addTapEmitter } from '../utils/gestures';
 import ProgressBar from "./ProgressBar";
 import StoreBookProgress from "./StoreBookProgress";
@@ -15,29 +16,13 @@ interface Props {
 export default function Reader(props: Props) {
     const bookElRef = useRef<HTMLDivElement>();
     const book = useBook(props.id);
-    const [rendition, setRendition] = useState<Rendition>(null);
+    const rendition = useRendition(book, bookElRef);
     globalThis.rendition = rendition;
     globalThis.book = book;
 
     const progress = useBookPercentage(rendition);
 
     useBookInteractions(rendition, bookElRef);
-
-    useEffect(() => {
-        if (!book || !bookElRef.current) return;
-
-        const rendition = book.renderTo(bookElRef.current);
-        setRendition(rendition);
-        addTapEmitter(rendition);
-        addSwipeEmitter(rendition);
-        getBookProgress(book).then(async cfi => {
-            await rendition.display(cfi);
-
-            // Focus the frame so we get keyboard events.
-            const frame = bookElRef.current.querySelector('iframe');
-            frame.focus();
-        });
-    }, [book]);
 
     return <div className="w-screen h-screen">
         <StoreBookProgress rendition={rendition} />
