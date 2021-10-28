@@ -3,6 +3,7 @@ import useBookInteractions from '../hooks/useBookInteractions';
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
 import useRendition from '../hooks/useRendition';
+import Chapters from "./ChapterList";
 import Overlay from "./Overlay";
 import ProgressBar from "./ProgressBar";
 import StoreBookProgress from "./StoreBookProgress";
@@ -27,8 +28,8 @@ export default function Reader(props: Props) {
     useEffect(() => {
         if (!rendition) return;
 
-        // TODO: Only show the overlay when the center is tapped.
-        // rendition.on('tap', () => setShowOverlay(true));
+        // TODO: Show the overlay when the center is tapped.
+        rendition.on('keyup', (e: KeyboardEvent) => e.key == "Enter" && setShowOverlay(open => !open));
     }, [rendition]);
     return <div className="w-screen h-screen">
         <StoreBookProgress rendition={rendition} />
@@ -39,7 +40,7 @@ export default function Reader(props: Props) {
 
         </div>
         <Overlay open={showOverlay} setOpen={setShowOverlay} dismissOnClick>
-            Hello World
+            <Chapters book={book} rendition={rendition}/>
         </Overlay>
         {/* <div className="absolute top-0 bottom-0 left-0 right-0" onClick={nextPage}>
         </div> */}
