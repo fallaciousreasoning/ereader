@@ -52,5 +52,5 @@ export default function useBookInteractions(rendition: Rendition, zones: TapZone
             rendition.off('tap', mouseHandler);
             rendition.off('swipe', swipeHandler);
         };
-    }, [rendition]);
+    }, [rendition, showMenu]);
 }

@@ -20,7 +20,7 @@ export default function BookControls(props: Props) {
 
     useBookInteractions(props.rendition, zones, props.showMenu);
 
-    return <div className="absolute top-0 bottom-0 left-0 right-0 pointer-events-none gap-10 opacity-80 grid grid-cols-3 text-3xl">
+    return <div className="absolute top-0 bottom-0 left-0 right-0 pointer-events-none gap-10 opacity-0 grid grid-cols-3 text-3xl">
         <div ref={previousRef} className="bg-blue-50 flex items-center justify-center">Previous Page</div>
         <div ref={menuRef} className="bg-green-50 flex items-center justify-center">Menu</div>
         <div ref={nextRef} className="bg-yellow-50 flex items-center justify-center">Next Page</div>
