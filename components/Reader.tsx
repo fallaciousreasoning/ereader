@@ -37,7 +37,7 @@ export default function Reader(props: Props) {
         <div className="absolute top-0 bottom-0 left-0 right-0" ref={bookElRef}>
 
         </div>
-        <BookControls rendition={rendition} bookRef={bookElRef} showMenu={() => setShowOverlay(true)}/>
+        <BookControls rendition={rendition} showMenu={() => setShowOverlay(true)}/>
         <Overlay open={showOverlay} setOpen={setShowOverlay} dismissOnClick>
             <Chapters book={book} rendition={rendition}/>
         </Overlay>

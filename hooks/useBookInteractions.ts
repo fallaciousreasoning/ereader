@@ -1,11 +1,14 @@
 import { Rendition } from "epubjs";
 import React, { useEffect } from "react";
 import { Direction } from "../utils/gestures";
+import { contains } from "../utils/rect";
+
+type TapZones = { previous: React.MutableRefObject<HTMLDivElement>, next: React.MutableRefObject<HTMLDivElement>, menu: React.MutableRefObject<HTMLDivElement> };
 
 const nextKeys = [68, 39, 32, 40];
 const previousKeys = [65, 37, 38];
 
-export default function useBookInteractions(rendition: Rendition, bookElRef: React.MutableRefObject<HTMLDivElement>) {
+export default function useBookInteractions(rendition: Rendition, zones: TapZones, showMenu: () => void) {
     useEffect(() => {
         if (!rendition) return;
 
@@ -15,18 +18,28 @@ export default function useBookInteractions(rendition: Rendition, bookElRef: Rea
         };
 
         const mouseHandler = (e: MouseEvent) => {
-            const bookBounds = bookElRef.current?.getBoundingClientRect();
-            if (!bookBounds) return;
+            const point = { x: e.screenX, y: e.screenY };
 
-            const x = e.screenX - window.screenX;
-
-            // If the click is on the left side, go back. Otherwise go forward.
-            if (x < bookBounds.x + bookBounds.width / 2)
+            const previousBounds = zones.previous?.current?.getBoundingClientRect();
+            if (contains(previousBounds, point)) {
                 rendition.prev();
-            else rendition.next();
+                return;
+            }
+
+            const nextBounds = zones.next?.current?.getBoundingClientRect();
+            if (contains(nextBounds, point)) {
+                rendition.next();
+                return;
+            }
+
+            const menuBounds = zones.menu?.current?.getBoundingClientRect();
+            if (contains(menuBounds, point)) {
+                showMenu?.();
+                return;
+            }
         };
 
-        const swipeHandler = (e: { direction: Direction}) => {
+        const swipeHandler = (e: { direction: Direction }) => {
             if (e.direction == Direction.Left) rendition.next();
             if (e.direction == Direction.Right) rendition.prev();
         }
