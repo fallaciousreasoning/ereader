@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import useBookInteractions from '../hooks/useBookInteractions';
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
 import useRendition from '../hooks/useRendition';
+import BookControls from "./BookControls";
 import Chapters from "./ChapterList";
 import Overlay from "./Overlay";
 import ProgressBar from "./ProgressBar";
@@ -19,8 +19,6 @@ export default function Reader(props: Props) {
     const rendition = useRendition(book, bookElRef);
     globalThis.rendition = rendition;
     globalThis.book = book;
-
-    useBookInteractions(rendition, bookElRef);
 
     const progress = useBookPercentage(rendition);
 
@@ -39,10 +37,9 @@ export default function Reader(props: Props) {
         <div className="absolute top-0 bottom-0 left-0 right-0" ref={bookElRef}>
 
         </div>
+        <BookControls rendition={rendition} bookRef={bookElRef} showMenu={() => setShowOverlay(true)}/>
         <Overlay open={showOverlay} setOpen={setShowOverlay} dismissOnClick>
             <Chapters book={book} rendition={rendition}/>
         </Overlay>
-        {/* <div className="absolute top-0 bottom-0 left-0 right-0" onClick={nextPage}>
-        </div> */}
     </div>
 }
