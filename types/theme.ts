@@ -40,12 +40,15 @@ export const getEpubStyles = (theme: Theme) => {
             background: theme.background,
             color: theme.text,
 
-            'line-spacing': `${theme.lineHeight} !important`,
+            'line-height': `${theme.lineHeight} !important`,
             'font-family': `${theme.fontFamily} !important`,
             'text-align': `${theme.textAlign} !important`,
             'font-size': `${theme.fontSize}pt !important`,
 
-            'padding': `${theme.marginTop}px ${theme.marginRight}px ${theme.marginBottom}px ${theme.marginLeft}px`
+            'padding-top': `${theme.marginTop}px !important`,
+            'padding-right': `${theme.marginRight}px !important`,
+            'padding-bottom': `${theme.marginBottom}px !important`,
+            'padding-left': `${theme.marginLeft}px !important`,
         },
 
         p: {
