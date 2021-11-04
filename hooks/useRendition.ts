@@ -1,13 +1,14 @@
 import { Book, Contents, Rendition } from "epubjs";
 import React, { useEffect, useState } from "react";
 import { getBookProgress } from "../data/book";
+import { useTheme } from "../data/theme";
 import { defaultTheme, getEpubStyles } from "../types/theme";
 import { addSwipeEmitter, addTapEmitter } from "../utils/gestures";
 
 export default function useRendition(book: Book, bookElRef: React.MutableRefObject<HTMLDivElement>) {
     const [rendition, setRendition] = useState<Rendition>(null);
 
-    const theme = defaultTheme;
+    const theme = useTheme();
     useEffect(() => {
         if (!rendition) return;
 
