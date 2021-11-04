@@ -5,6 +5,7 @@ import BookCard from '../components/BookCard';
 import FilePicker from '../components/FilePicker'
 import Search from '../components/Search';
 import { importBook, metadataForBooks } from '../data/book';
+import { bookMatches } from '../utils/book';
 
 const gridStyle = { gridTemplateColumns: 'repeat(auto-fill, minmax(150px, auto))', gridAutoRows: 'minmax(200px, auto)' };
 const aspectRatio = { aspectRatio: '3/4'};
@@ -12,9 +13,7 @@ export default function Home() {
   const metadata = useLiveQuery(metadataForBooks, []) || [];
   const [filter, setFilter] = useState('');
   const onFilterChanged = useCallback(e => setFilter(e.target.value), []);
-  const filteredMetaData = useMemo(() => metadata.filter(meta => meta.creator.includes(filter)
-    || meta.title.includes(filter)
-    || meta.publisher.includes(filter)), [metadata, filter]);
+  const filteredMetaData = useMemo(() => metadata.filter(m => bookMatches(m, filter)), [metadata, filter]);
 
   return (
     <div className="p-4">
