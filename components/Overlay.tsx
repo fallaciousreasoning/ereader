@@ -1,13 +1,13 @@
 import { useCallback } from "react"
 
-interface Props {
+export interface OverlayProps {
     open: boolean;
     dismissOnClick: boolean;
     setOpen: (open: boolean) => void;
     children?: React.ReactNode;
 }
 
-export default function Overlay(props: Props) {
+export default function Overlay(props: OverlayProps) {
     const maybeDismiss = useCallback(() => {
         if (props.dismissOnClick) props.setOpen(false);
     }, [props.dismissOnClick]);

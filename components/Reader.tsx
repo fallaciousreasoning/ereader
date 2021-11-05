@@ -3,6 +3,7 @@ import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
 import useRendition from '../hooks/useRendition';
 import BookControls from "./BookControls";
+import BookMenu from "./BookMenu";
 import Chapters from "./ChapterList";
 import Overlay from "./Overlay";
 import ProgressBar from "./ProgressBar";
@@ -38,8 +39,6 @@ export default function Reader(props: Props) {
 
         </div>
         <BookControls rendition={rendition} showMenu={() => setShowOverlay(true)}/>
-        <Overlay open={showOverlay} setOpen={setShowOverlay} dismissOnClick>
-            <Chapters book={book} rendition={rendition}/>
-        </Overlay>
+        <BookMenu open={showOverlay} setOpen={setShowOverlay} dismissOnClick book={book} rendition={rendition}/>
     </div>
 }
