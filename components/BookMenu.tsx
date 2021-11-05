@@ -1,7 +1,9 @@
 import { Book, Rendition } from "epubjs";
 import React from "react";
+import Cog from "../icons/Cog";
 import Chapters from "./ChapterList";
 import Overlay, { OverlayProps } from "./Overlay";
+import Tabs from "./Tabs";
 
 interface Props extends OverlayProps {
     book: Book;
@@ -10,6 +12,11 @@ interface Props extends OverlayProps {
 
 export default function BookMenu(props: Props) {
     return <Overlay {...props}>
-        <Chapters book={props.book} rendition={props.rendition} />
+        <div className="bg-background">
+            <Tabs headers={["Chapters", <Cog width="2rem" height="2rem" />]}>
+                <Chapters book={props.book} rendition={props.rendition} />
+                <span>Other Thing</span>
+            </Tabs>
+        </div>
     </Overlay>
 }

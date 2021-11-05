@@ -19,8 +19,8 @@ function ChapterHeading(props: { chapter: NavItem, rendition: Rendition }) {
 }
 
 export default function Chapters(props: Props) {
-    return <div className="bg-white h-full max-w-md overflow-y-auto overflow-x-hidden">
-        <h2 className="text-2xl">Chapters</h2>
+    return <div className="h-full max-w-md overflow-y-auto overflow-x-hidden">
+        <h2 className="text-2xl">Table of Contents</h2>
         <ul className="text-lg">
             {props.book.navigation.toc.map((entry) => <ChapterHeading chapter={entry} rendition={props.rendition} key={entry.id} />)}
         </ul>
