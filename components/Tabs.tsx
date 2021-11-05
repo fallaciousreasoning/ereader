@@ -31,7 +31,7 @@ export default function Tabs(props: Props) {
                 {RenderTabHeader(i === selected, h)}
             </div>)}
         </div>
-        <div>
+        <div className="px-2 overflow-auto">
             {selectedChild}
         </div>
     </div>

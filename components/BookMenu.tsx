@@ -12,7 +12,7 @@ interface Props extends OverlayProps {
 
 export default function BookMenu(props: Props) {
     return <Overlay {...props}>
-        <div className="bg-background">
+        <div className="bg-background max-h-screen">
             <Tabs headers={["Chapters", <Cog width="2rem" height="2rem" />]}>
                 <Chapters book={props.book} rendition={props.rendition} />
                 <span>Other Thing</span>
