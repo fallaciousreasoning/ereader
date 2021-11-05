@@ -52,7 +52,7 @@ export default function Settings() {
                 </div>
             </div>
             <div>
-                <Button onClick={() => updateTheme(defaultTheme)}>Reset</Button>
+                <Button onClick={() => updateTheme(defaultTheme)}>Reset Settings</Button>
             </div>
         </div>
     </div>
