@@ -19,13 +19,13 @@ export interface Theme {
 export const defaultTheme: Theme = {
     mode: 'system',
 
-    background: '#FFF',
-    text: '#000',
+    background: '#FFFFFF',
+    text: '#000000',
     link: '#008DD1',
 
     textAlign: 'justify',
-    lineHeight: 1.7,
-    fontSize: 25,
+    lineHeight: 1.2,
+    fontSize: 16,
     fontFamily: "'Arial', Arimo, Liberation Sans, sans-serif;",
 
     marginTop: 8,

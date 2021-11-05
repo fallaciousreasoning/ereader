@@ -1,6 +1,8 @@
 import Head from "next/head";
 import React from "react";
+import Button from "../components/Button";
 import { updateTheme, useTheme } from "../data/theme";
+import { defaultTheme } from "../types/theme";
 
 const themeModes = ['light', 'dark', 'system'] as const;
 export default function Settings() {
@@ -48,6 +50,9 @@ export default function Settings() {
                 <div className="flex gap-2 w-full">
                     <input className="max-w-xs flex-1" type="color" value={theme.link} onChange={(e) => updateTheme({ link: e.target.value })} />
                 </div>
+            </div>
+            <div>
+                <Button onClick={() => updateTheme(defaultTheme)}>Reset</Button>
             </div>
         </div>
     </div>
