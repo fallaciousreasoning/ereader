@@ -65,7 +65,7 @@ export const getEpubStyles = (theme: Theme) => {
         },
 
         "a:link:hover": {
-            "background": "rgba(0, 0, 0, 0.1) !important"
+            "opacity": "0.8 !important"
         },
         
         "img": {
