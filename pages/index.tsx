@@ -7,7 +7,7 @@ import Search from '../components/Search';
 import { importBook, metadataForBooks } from '../data/book';
 import { bookMatches } from '../utils/book';
 
-const gridStyle = { gridTemplateColumns: 'repeat(auto-fill, minmax(150px, auto))', gridAutoRows: 'minmax(200px, auto)' };
+const gridStyle = { gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gridAutoRows: 'minmax(200px, auto)' };
 const aspectRatio = { aspectRatio: '3/4'};
 export default function Home() {
   const metadata = useLiveQuery(metadataForBooks, []) || [];
