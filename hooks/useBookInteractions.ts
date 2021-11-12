@@ -12,8 +12,10 @@ const nextKeys = [68, 39, 32, 40];
 const previousKeys = [65, 37, 38];
 
 type Log = { type: string, detail?: string, timestamp?: number };
+let shouldLog = false;
 export const logs: Log[] = JSON.parse(globalThis.localStorage?.getItem('interactionlog') ?? null) ?? [];
 const addLog = (log: Log) => {
+    if (shouldLog) return;
     logs.push({ timestamp: Date.now(), ...log });
     globalThis.localStorage.setItem('interactionlog', JSON.stringify(logs));
 }
