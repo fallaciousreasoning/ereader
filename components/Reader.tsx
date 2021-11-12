@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
 import useRendition from '../hooks/useRendition';
+import useOverlayStore from "../store/useOverlayStore";
 import BookControls from "./BookControls";
 import BookMenu from "./BookMenu";
 import Chapters from "./ChapterList";
@@ -17,6 +18,7 @@ interface Props {
 export default function Reader(props: Props) {
     const bookElRef = useRef<HTMLDivElement>();
     const book = useBook(props.id);
+    const [overlay, setOverlay] = useOverlayStore();
 
     const rendition = useRendition(book, bookElRef);
     globalThis.rendition = rendition;
@@ -24,12 +26,11 @@ export default function Reader(props: Props) {
 
     const progress = useBookPercentage(rendition);
 
-    const [showOverlay, setShowOverlay] = useState(false);
     useEffect(() => {
         if (!rendition) return;
 
         // TODO: Show the overlay when the center is tapped.
-        rendition.on('keyup', (e: KeyboardEvent) => e.key == "Enter" && setShowOverlay(open => !open));
+        rendition.on('keyup', (e: KeyboardEvent) => e.key == "Enter" && setOverlay('none'));
     }, [rendition]);
     return <div className="w-screen h-screen">
         <StoreBookProgress rendition={rendition} />
@@ -41,6 +42,6 @@ export default function Reader(props: Props) {
         </div>
         <BookControls rendition={rendition} showMenu={() => setShowOverlay(true)} />
         <WordLookup />
-        <BookMenu open={showOverlay} setOpen={setShowOverlay} dismissOnClick book={book} rendition={rendition} />
+        <BookMenu book={book} rendition={rendition} />
     </div>
 }

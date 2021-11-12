@@ -16,7 +16,7 @@ export class GcideDictionary implements DictionaryProvider {
         const json = await response.json() as Definitions;
 
         this.definitions = json;
-        this.words = Object.keys(this.words);
+        this.words = Object.keys(this.definitions);
     }
 
     async getWords() {

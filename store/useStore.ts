@@ -17,7 +17,6 @@ export function createStore<T extends {}>(name: string, initialValue: T) {
     if (stores[name]) throw new Error(`A store already exists with the name ${name}`);
 
     let subscriptions: Callback[] = [];
-    let state: T = initialValue;
 
     stores[name] = {
         data: initialValue,
@@ -28,7 +27,8 @@ export function createStore<T extends {}>(name: string, initialValue: T) {
             subscriptions.unshift(callback);
         },
         setState: (newState) => {
-            state = typeof newState === "function" ? (newState as any)(state) : newState;
+            const state = stores[name].data;
+            stores[name].data = typeof newState === "function" ? (newState as any)(state) : newState;
             subscriptions.forEach(s => s(name));
         },
         subscriptions: []

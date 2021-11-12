@@ -1,5 +1,6 @@
 import { Rendition } from "epubjs";
 import React, { useEffect } from "react";
+import useOverlayStore from "../store/useOverlayStore";
 import { Direction } from "../utils/gestures";
 import { contains } from "../utils/rect";
 
@@ -8,7 +9,9 @@ type TapZones = { previous: React.MutableRefObject<HTMLDivElement>, next: React.
 const nextKeys = [68, 39, 32, 40];
 const previousKeys = [65, 37, 38];
 
-export default function useBookInteractions(rendition: Rendition, zones: TapZones, showMenu: () => void) {
+export default function useBookInteractions(rendition: Rendition, zones: TapZones) {
+    const [overlay, setOverlay] = useOverlayStore();
+
     useEffect(() => {
         if (!rendition) return;
 
@@ -34,7 +37,7 @@ export default function useBookInteractions(rendition: Rendition, zones: TapZone
 
             const menuBounds = zones.menu?.current?.getBoundingClientRect();
             if (contains(menuBounds, point)) {
-                showMenu?.();
+                setOverlay('menu');
                 return;
             }
         };
@@ -52,5 +55,5 @@ export default function useBookInteractions(rendition: Rendition, zones: TapZone
             rendition.off('tap', mouseHandler);
             rendition.off('swipe', swipeHandler);
         };
-    }, [rendition, showMenu]);
+    }, [rendition, setOverlay]);
 }

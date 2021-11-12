@@ -4,7 +4,6 @@ import useBookInteractions from "../hooks/useBookInteractions";
 
 interface Props {
     rendition: Rendition;
-    showMenu?: () => void;
 }
 
 export default function BookControls(props: Props) {
@@ -18,7 +17,7 @@ export default function BookControls(props: Props) {
         next: nextRef
     }), [previousRef, menuRef, nextRef]);
 
-    useBookInteractions(props.rendition, zones, props.showMenu);
+    useBookInteractions(props.rendition, zones);
 
     return <div className="absolute top-0 bottom-0 left-0 right-0 pointer-events-none gap-10 opacity-0 grid grid-cols-3 text-3xl">
         <div ref={previousRef} className="bg-blue-50 flex items-center justify-center">Previous Page</div>
