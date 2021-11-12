@@ -1,5 +1,6 @@
 import { Book, Rendition } from "epubjs";
-import React from "react";
+import React, { useMemo } from "react";
+import { useIsMobile } from "../hooks/useIsMobile";
 import Cog from "../icons/Cog";
 import List from "../icons/List";
 import AppearanceConfig from "./AppearanceConfig";
@@ -12,9 +13,13 @@ interface Props extends OverlayProps {
     rendition: Rendition;
 }
 
+export const halfHeight = { maxHeight: '50vh' }
+export const halfWidth = { maxWidth: '50vw' }
 export default function BookMenu(props: Props) {
+    const isMobile = useIsMobile();
+    const sizeConstraint = useMemo(() => isMobile ? halfHeight : halfWidth, [isMobile]);
     return <Overlay {...props}>
-        <div className="bg-background max-h-screen" onClick={e => e.stopPropagation()}>
+        <div className="bg-background overflow-x-hidden overflow-y-auto" onClick={e => e.stopPropagation()} style={sizeConstraint}>
             <Tabs headers={[<List width="2rem" height="2rem" />, <Cog width="2rem" height="2rem" />]}>
                 <Chapters book={props.book} rendition={props.rendition} />
                 <AppearanceConfig />
