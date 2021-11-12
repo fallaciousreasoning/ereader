@@ -1,5 +1,6 @@
 import { Book, NavItem, Rendition } from "epubjs";
 import { useCallback } from "react";
+import useOverlayStore from "../store/useOverlayStore";
 
 interface Props {
     book: Book;
@@ -7,9 +8,11 @@ interface Props {
 }
 
 function ChapterHeading(props: { chapter: NavItem, rendition: Rendition }) {
+    const [, setOverlay] = useOverlayStore();
     const navigate = useCallback(() => {
         props.rendition.display(props.chapter.href);
-    }, [props.chapter, props.rendition]);
+        setOverlay('none');
+    }, [props.chapter, props.rendition, setOverlay]);
     return <li>
         <span className="text-blue-600 underline cursor-pointer" onClick={navigate}>{props.chapter.label}</span>
         {props.chapter.subitems && !!props.chapter.subitems.length && <ul className="ml-2">
