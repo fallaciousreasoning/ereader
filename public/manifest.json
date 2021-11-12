@@ -1,5 +1,8 @@
 {
     "name": "eReadr",
     "description": "An ebook reader",
-    "display": "standalone"
+    "display": "standalone",
+    "start_url": "/",
+    "background_color": "#FFFFFF",
+    "theme_color": "#7e22ce"
 }
