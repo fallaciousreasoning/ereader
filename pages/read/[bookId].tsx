@@ -9,7 +9,7 @@ export default function Read() {
 
     return <div className="overflow-hidden">
         <Head>
-            <meta name="viewport" content="width=device-width, user-scalable=no">
+            <meta name="viewport" content="width=device-width, user-scalable=no"/>
         </Head>
         {bookId && <Reader id={bookId} />}
     </div>
