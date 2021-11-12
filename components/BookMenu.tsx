@@ -22,7 +22,9 @@ export default function BookMenu(props: Props) {
     const sizeConstraint = useMemo(() => isMobile ? halfHeight : halfWidth, [isMobile]);
     return <Overlay dismissOnClick open={overlay === 'menu'} setOpen={() => setOverlay('none')}>
         <div className="bg-background overflow-x-hidden overflow-y-auto" onClick={e => e.stopPropagation()} style={sizeConstraint}>
-            <Tabs headers={[<List width="2rem" height="2rem" />, <Cog width="2rem" height="2rem" />]} stickyHeader>
+            <Tabs headers={[
+                <List width="2rem" height="2rem" />,
+                <Cog width="2rem" height="2rem" />]} stickyHeader>
                 <Chapters book={props.book} rendition={props.rendition} />
                 <AppearanceConfig />
             </Tabs>
