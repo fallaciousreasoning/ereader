@@ -3,6 +3,7 @@ import { usePromise } from "../hooks/usePromise";
 import { getDefinition } from "../plugins/dictionary/dictionary";
 import { Definition } from "../plugins/dictionary/dictionaryProvider";
 import useOverlayStore from "../store/useOverlayStore";
+import useWordLookup from "../store/useWordLookup";
 import Overlay from "./Overlay";
 import Search from "./Search";
 
@@ -18,7 +19,7 @@ function DefinitionEntry(props: { definition: Definition }) {
 
 export default function WordLookup() {
     const [overlay, setOverlay] = useOverlayStore();
-    const [word, setWord] = useState('');
+    const [word, setWord] = useWordLookup();
     const definitions = useDefinitions(word);
 
     return <Overlay dismissOnClick open={overlay === "wordlookup"} setOpen={() => setOverlay('none')}>

@@ -1,8 +1,10 @@
 import { Rendition } from "epubjs";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useOverlayStore from "../store/useOverlayStore";
+import useWordLookup from "../store/useWordLookup";
 import { Direction } from "../utils/gestures";
 import { contains } from "../utils/rect";
+import { useHighlighted, useHighlightedWord } from "./useInteractions";
 
 type TapZones = { previous: React.MutableRefObject<HTMLDivElement>, next: React.MutableRefObject<HTMLDivElement>, menu: React.MutableRefObject<HTMLDivElement> };
 
@@ -10,7 +12,13 @@ const nextKeys = [68, 39, 32, 40];
 const previousKeys = [65, 37, 38];
 
 export default function useBookInteractions(rendition: Rendition, zones: TapZones) {
-    const [overlay, setOverlay] = useOverlayStore();
+    const [, setOverlay] = useOverlayStore();
+    const [, setWordLookup] = useWordLookup();
+    const highlightedWord = useHighlightedWord(rendition);
+
+    useEffect(() => {
+        if (highlightedWord) setWordLookup(highlightedWord);
+    }, [highlightedWord, setWordLookup]);
 
     useEffect(() => {
         if (!rendition) return;
