@@ -46,6 +46,7 @@ export default function useBookInteractions(rendition: Rendition, zones: TapZone
             addLog({ type: 'tap', detail: `x: ${e.x}, y: ${e.y}` });
 
             const previousBounds = zones.previous?.current?.getBoundingClientRect();
+            addLog( { type: 'previousbounds', detail: JSON.stringify(previousBounds) });
             if (contains(previousBounds, point)) {
                 addLog({ type: 'tapprev' });
                 rendition.prev();
@@ -53,6 +54,7 @@ export default function useBookInteractions(rendition: Rendition, zones: TapZone
             }
 
             const nextBounds = zones.next?.current?.getBoundingClientRect();
+            addLog( { type: 'nextbounds', detail: JSON.stringify(nextBounds) });
             if (contains(nextBounds, point)) {
                 addLog({ type: 'tapnext' });
                 rendition.next();
@@ -60,6 +62,7 @@ export default function useBookInteractions(rendition: Rendition, zones: TapZone
             }
 
             const menuBounds = zones.menu?.current?.getBoundingClientRect();
+            addLog( { type: 'menubounds', detail: JSON.stringify(menuBounds) });
             if (contains(menuBounds, point)) {
                 addLog({ type: 'tapmenu' });
                 setOverlay('menu');
