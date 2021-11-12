@@ -27,7 +27,6 @@ export default function Reader(props: Props) {
     useEffect(() => {
         if (!rendition) return;
 
-        // TODO: Show the overlay when the center is tapped.
         rendition.on('keyup', (e: KeyboardEvent) => e.key == "Enter" && setOverlay('none'));
     }, [rendition]);
     return <div className="w-screen h-screen">
