@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { usePromise } from "../hooks/usePromise";
 import { getDefinition } from "../plugins/dictionary/dictionary";
 import { Definition } from "../plugins/dictionary/dictionaryProvider";
+import useOverlayStore from "../store/useOverlayStore";
 import Overlay from "./Overlay";
 import Search from "./Search";
 
@@ -16,10 +17,11 @@ function DefinitionEntry(props: { definition: Definition }) {
 }
 
 export default function WordLookup() {
+    const [overlay, setOverlay] = useOverlayStore();
     const [word, setWord] = useState('');
     const definitions = useDefinitions(word);
 
-    return <Overlay dismissOnClick open={false} setOpen={() => { }}>
+    return <Overlay dismissOnClick open={overlay === "wordlookup"} setOpen={() => setOverlay('none')}>
         <div className="m-auto w-96 border-foreground border bg-white rounded py-2">
             <div className="flex flex-col">
                 <div className="px-2">
