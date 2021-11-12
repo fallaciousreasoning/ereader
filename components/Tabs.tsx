@@ -41,7 +41,7 @@ export default function Tabs(props: Props) {
     return <div className="w-full flex flex-col">
         <div className={`flex flex-row bg-background ${props.stickyHeader ? 'sticky top-0' : ''}`}>
             <div className="w-1 border-solid border-black border-b" />
-            {props.headers.map((h, i) => <RenderTabHeaderContainer selected={i === selected} setSelected={() => setSelected(i)} header={h} />)}
+            {props.headers.map((h, i) => <RenderTabHeaderContainer key={i} selected={i === selected} setSelected={() => setSelected(i)} header={h} />)}
             <div className="w-1 border-solid border-black border-b flex-1" />
         </div>
         <div className="px-2 overflow-auto">
