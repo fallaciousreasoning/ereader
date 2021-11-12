@@ -16,6 +16,7 @@ let shouldLog = false;
 export const logs: Log[] = JSON.parse(globalThis.localStorage?.getItem('interactionlog') ?? null) ?? [];
 const addLog = (log: Log) => {
     if (shouldLog) return;
+    
     logs.push({ timestamp: Date.now(), ...log });
     globalThis.localStorage.setItem('interactionlog', JSON.stringify(logs));
 }

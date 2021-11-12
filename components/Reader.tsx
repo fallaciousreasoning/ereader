@@ -29,7 +29,7 @@ export default function Reader(props: Props) {
 
         rendition.on('keyup', (e: KeyboardEvent) => e.key == "Enter" && setOverlay('none'));
     }, [rendition]);
-    return <div className="w-screen h-screen">
+    return <div className="w-screen h-screen overflow-hidden">
         <StoreBookProgress rendition={rendition} />
         <div className="pointer-events-none top-0 absolute left-0 right-0">
             <ProgressBar progress={progress} />
