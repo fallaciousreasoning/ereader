@@ -5,6 +5,7 @@ type TabHeader = string | React.ReactNode | ((selected: boolean) => React.ReactN
 interface Props {
     headers: TabHeader[];
     children: React.ReactNode[];
+    stickyHeader?: boolean;
 }
 
 function RenderTabHeader(selected: boolean, header: TabHeader) {
@@ -23,7 +24,7 @@ export default function Tabs(props: Props) {
     const [selected, setSelected] = useState(0);
     const selectedChild = props.children[selected];
     return <div className="w-full flex flex-col">
-        <div className="flex flex-row">
+        <div className={`flex flex-row bg-background ${props.stickyHeader ? 'sticky top-0' : ''}`}>
             {props.headers.map((h, i) => <div key={i} className={`${i === selected ? 'bg-primary' : ''} p-2`} onClick={e => {
                 setSelected(i);
                 e.stopPropagation();

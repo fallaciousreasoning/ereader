@@ -13,14 +13,14 @@ interface Props extends OverlayProps {
     rendition: Rendition;
 }
 
-export const halfHeight = { maxHeight: '50vh' }
+export const halfHeight = { maxHeight: '75vh' }
 export const halfWidth = { maxWidth: '50vw' }
 export default function BookMenu(props: Props) {
     const isMobile = useIsMobile();
     const sizeConstraint = useMemo(() => isMobile ? halfHeight : halfWidth, [isMobile]);
     return <Overlay {...props}>
         <div className="bg-background overflow-x-hidden overflow-y-auto" onClick={e => e.stopPropagation()} style={sizeConstraint}>
-            <Tabs headers={[<List width="2rem" height="2rem" />, <Cog width="2rem" height="2rem" />]}>
+            <Tabs headers={[<List width="2rem" height="2rem" />, <Cog width="2rem" height="2rem" />]} stickyHeader>
                 <Chapters book={props.book} rendition={props.rendition} />
                 <AppearanceConfig />
             </Tabs>
