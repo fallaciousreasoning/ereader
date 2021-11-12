@@ -1,4 +1,5 @@
-import { logs } from "../hooks/useBookInteractions";
+import Button from "../components/Button";
+import { clearLog, logs } from "../hooks/useBookInteractions";
 
 export default function InteractionLog() {
     return <div>
@@ -10,5 +11,6 @@ export default function InteractionLog() {
                 <b>Timestamp:</b> {l.timestamp}, <b>Type:</b> {l.type}, <b>Detail:</b> {l.detail}
             </div>)}
         </div>
+        <Button onClick={clearLog}>Clear Log</Button>
     </div>
 }
