@@ -23,7 +23,7 @@ export default function WordLookup() {
     const definitions = useDefinitions(word);
 
     return <Overlay dismissOnClick open={overlay === "wordlookup"} setOpen={() => setOverlay('none')}>
-        <div className="m-auto w-96 border-foreground border bg-white rounded py-2">
+        <div className="m-auto w-96 max-w-screen border-foreground border bg-white rounded py-2 mt-2" onClick={e => e.stopPropagation()}>
             <div className="flex flex-col">
                 <div className="px-2">
                     <Search className="w-full" placeholder="search for a word" value={word} onChange={e => setWord(e.target['value'])} />
