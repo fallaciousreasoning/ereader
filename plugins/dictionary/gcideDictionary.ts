@@ -12,7 +12,7 @@ export class GcideDictionary implements DictionaryProvider {
 
         this.initialized = true;
 
-        const response = await fetch('/public/dictionary.json');
+        const response = await fetch('/dictionary.json');
         const json = await response.json() as Definitions;
 
         this.definitions = json;

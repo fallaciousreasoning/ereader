@@ -8,6 +8,7 @@ import Chapters from "./ChapterList";
 import Overlay from "./Overlay";
 import ProgressBar from "./ProgressBar";
 import StoreBookProgress from "./StoreBookProgress";
+import WordLookup from "./WordLookup";
 
 interface Props {
     id: string;
@@ -38,7 +39,8 @@ export default function Reader(props: Props) {
         <div className="absolute top-0 bottom-0 left-0 right-0" ref={bookElRef}>
 
         </div>
-        <BookControls rendition={rendition} showMenu={() => setShowOverlay(true)}/>
-        <BookMenu open={showOverlay} setOpen={setShowOverlay} dismissOnClick book={book} rendition={rendition}/>
+        <BookControls rendition={rendition} showMenu={() => setShowOverlay(true)} />
+        <WordLookup />
+        <BookMenu open={showOverlay} setOpen={setShowOverlay} dismissOnClick book={book} rendition={rendition} />
     </div>
 }
