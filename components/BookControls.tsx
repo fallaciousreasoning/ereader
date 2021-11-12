@@ -22,7 +22,7 @@ export default function BookControls(props: Props) {
     useBookInteractions(props.rendition, zones);
 
     return <div className={`absolute top-0 bottom-0 left-0 right-0 pointer-events-none text-3xl ${overlay === 'tapzones' || true ? 'opacity-70' : 'opacity-0'}`}>
-        <div className="w-full h-full gap-10 grid grid-cols-3 ">
+        <div className="w-full h-full gap-10 grid grid-cols-3 bg-red-700">
             <div ref={previousRef} className="bg-blue-50 flex items-center justify-center">Previous Page</div>
             <div ref={menuRef} className="bg-green-50 flex items-center justify-center">Menu</div>
             <div ref={nextRef} className="bg-yellow-50 flex items-center justify-center">Next Page</div>
