@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
 import useRendition from '../hooks/useRendition';
 import useOverlayStore from "../store/useOverlayStore";
 import BookControls from "./BookControls";
 import BookMenu from "./BookMenu";
-import Chapters from "./ChapterList";
-import Overlay from "./Overlay";
 import ProgressBar from "./ProgressBar";
 import StoreBookProgress from "./StoreBookProgress";
 import WordLookup from "./WordLookup";
@@ -18,7 +16,7 @@ interface Props {
 export default function Reader(props: Props) {
     const bookElRef = useRef<HTMLDivElement>();
     const book = useBook(props.id);
-    const [overlay, setOverlay] = useOverlayStore();
+    const [, setOverlay] = useOverlayStore();
 
     const rendition = useRendition(book, bookElRef);
     globalThis.rendition = rendition;
@@ -40,7 +38,7 @@ export default function Reader(props: Props) {
         <div className="absolute top-0 bottom-0 left-0 right-0" ref={bookElRef}>
 
         </div>
-        <BookControls rendition={rendition} showMenu={() => setShowOverlay(true)} />
+        <BookControls rendition={rendition} />
         <WordLookup />
         <BookMenu book={book} rendition={rendition} />
     </div>
