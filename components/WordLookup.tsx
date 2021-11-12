@@ -19,7 +19,7 @@ export default function WordLookup() {
     const [word, setWord] = useState('');
     const definitions = useDefinitions(word);
 
-    return <Overlay dismissOnClick open={true} setOpen={() => { }}>
+    return <Overlay dismissOnClick open={false} setOpen={() => { }}>
         <div className="m-auto w-96 border-foreground border bg-white rounded py-2">
             <div className="flex flex-col">
                 <div className="px-2">
