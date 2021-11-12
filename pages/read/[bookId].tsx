@@ -6,7 +6,7 @@ export default function Read() {
     const router = useRouter();
     const bookId = router.query.bookId?.toString();
 
-    return <div>
+    return <div className="overflow-hidden">
         {bookId && <Reader id={bookId} />}
     </div>
 };
