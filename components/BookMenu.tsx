@@ -6,7 +6,7 @@ import List from "../icons/List";
 import useOverlayStore from "../store/useOverlayStore";
 import AppearanceConfig from "./AppearanceConfig";
 import Chapters from "./ChapterList";
-import Overlay, { OverlayProps } from "./Overlay";
+import Overlay from "./Overlay";
 import Tabs from "./Tabs";
 
 interface Props {
