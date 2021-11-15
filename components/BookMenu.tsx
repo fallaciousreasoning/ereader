@@ -14,12 +14,19 @@ interface Props {
     rendition: Rendition;
 }
 
-export const halfHeight = { maxHeight: '75vh' }
-export const halfWidth = { maxWidth: '50vw' }
+export const mobileStyle = { 
+    maxHeight: '75vh',
+    width: '100vh'
+}
+export const desktopStyle = { 
+    width: '30rem',
+    height: '100vh'
+}
+
 export default function BookMenu(props: Props) {
     const [overlay, setOverlay] = useOverlayStore();
     const isMobile = useIsMobile();
-    const sizeConstraint = useMemo(() => isMobile ? halfHeight : halfWidth, [isMobile]);
+    const sizeConstraint = useMemo(() => isMobile ? mobileStyle : desktopStyle, [isMobile]);
     return <Overlay dismissOnClick open={overlay === 'menu'} setOpen={() => setOverlay('none')}>
         <div className="bg-background overflow-x-hidden overflow-y-auto" onClick={e => e.stopPropagation()} style={sizeConstraint}>
             <Tabs headers={[
