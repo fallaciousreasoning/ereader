@@ -11,17 +11,25 @@ const textAligns = ['left', 'right', 'center', 'justify'] as const;
 const margins = [0, 4, 8, 12, 16, 32, 48, 64];
 const backgrounds = [
     '#FFFFFF',
-    '#000000',
+    '#111111',
+    '#111b21',
     '#333333',
     '#f5deb3',
-    '#111111',
-    '#111b21'
+    '#000000',
 ];
 
 const foregrounds = [
     '#000000',
     '#FFFFFF',
     '#eeeeee',
+    '#f5deb3'
+];
+
+const linkColors = [
+    '#000000',
+    '#FFFFFF',
+    '#008DD1',
+    '#7d2818',
     '#f5deb3'
 ];
 
@@ -42,9 +50,6 @@ export default function AppearanceConfig() {
         <div className="flex flex-col">
             <h3 className="text-lg">Background Color</h3>
             <OptionPicker value={theme.background} onChange={v => updateTheme({ background: v })} options={backgrounds} renderOption={colorOption} />
-            <div className="flex gap-2 w-full">
-                <input className="max-w-xs flex-1" type="color" value={theme.background} onChange={(e) => updateTheme({ background: e.target.value })} />
-            </div>
         </div>
         <div className="flex flex-col">
             <h3 className="text-lg">Text Color</h3>
@@ -52,9 +57,7 @@ export default function AppearanceConfig() {
         </div>
         <div className="flex flex-col">
             <h3 className="text-lg">Link Color</h3>
-            <div className="flex gap-2 w-full">
-                <input className="max-w-xs flex-1" type="color" value={theme.link} onChange={(e) => updateTheme({ link: e.target.value })} />
-            </div>
+            <OptionPicker value={theme.link} onChange={v => updateTheme({ link: v })} options={linkColors} renderOption={colorOption} />
         </div>
         <div className="flex flex-col">
             <h3>Text Align</h3>

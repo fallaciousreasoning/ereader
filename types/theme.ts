@@ -57,7 +57,8 @@ export const getEpubStyles = (theme: Theme) => {
         },
 
         a: {
-            color: `inherit !important`,
+            color: `${theme.link} !important`,
+            '-webkit-text-fill-color': `${theme.link} !important`
         },
 
         "a:link": {
