@@ -14,7 +14,7 @@ const defaultOptionRenderer = (option: any, selected: boolean) => {
 
 export default function OptionPicker<T>(props: Props<T>) {
 
-    return <div className="flex flex-row -mx-1">
+    return <div className="flex flex-row -mx-1 flex-wrap">
         {props.options.map((option, index) => <div className="cursor-pointer p-1" onClick={e => props.onChange(option)} key={index}>
             {(props.renderOption ?? defaultOptionRenderer)(option, option === props.value)}
         </div>)}
