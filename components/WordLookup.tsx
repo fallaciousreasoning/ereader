@@ -36,6 +36,7 @@ export default function WordLookup() {
                         &nbsp;{word}
                     </div>
                 </div>
+                <div className="h-1 w-full border-solid border-foreground border-b"/>
                 <ol className="list-inside list-decimal overflow-y-auto max-h-96 px-2">
                     {definitions.map((d, i) => <DefinitionEntry key={i} definition={d} />)}
                 </ol>

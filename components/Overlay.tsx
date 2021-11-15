@@ -12,7 +12,7 @@ export default function Overlay(props: OverlayProps) {
         if (props.dismissOnClick) props.setOpen(false);
     }, [props.dismissOnClick]);
 
-    return props.open && <div className="absolute top-0 bottom-0 left-0 right-0" onClick={maybeDismiss}>
+    return props.open && <div className="absolute top-0 bottom-0 left-0 right-0 z-10" onClick={maybeDismiss}>
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-gray-600 opacity-40">
 
         </div>
