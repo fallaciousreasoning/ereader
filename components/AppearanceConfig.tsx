@@ -5,19 +5,15 @@ import Button from "./Button";
 import OptionPicker from "./OptionPicker";
 
 const themeModes = ['light', 'dark', 'system'] as const;
+const fontSizes = [12, 16, 20, 22, 24, 26, 28, 30, 34];
 export default function AppearanceConfig() {
     const theme = useTheme();
     return <div className="flex flex-col gap-1 py-1">
         <div className="flex flex-col">
-            <h3 className="text-lg">Theme</h3>
-            <OptionPicker value={theme.mode} options={themeModes} onChange={value => updateTheme({ mode: value })} />
-        </div>
-        <div className="flex flex-col">
             <h3 className="text-lg">Font Size</h3>
-            <div className="flex gap-2 w-full max-w-xs">
-                <input className="flex-1" type="range" min={8} max={32} value={theme.fontSize} onChange={(e) => updateTheme({ fontSize: parseInt(e.target.value) ?? 18 })} />
-                <span>{theme.fontSize}pt</span>
-            </div>
+            <OptionPicker options={fontSizes} value={theme.fontSize} onChange={value => updateTheme({ fontSize: value })} renderOption={(value, selected) => <div style={{ fontSize: value}} className={`flex flex-row h-full items-end ${selected ? 'underline' : ''}`}>
+                {value}
+            </div>} />
         </div>
         <div className="flex flex-col">
             <h3 className="text-lg">Line Spacing</h3>
