@@ -6,21 +6,21 @@ import OptionPicker from "./OptionPicker";
 
 const themeModes = ['light', 'dark', 'system'] as const;
 const fontSizes = [12, 16, 20, 22, 24, 26, 28, 30, 34];
+const lineSpacings = [1, 1.2, 1.5, 1.8, 2];
+const textAligns = ['left', 'right', 'center', 'justify'] as const;
+const margins = [0, 4, 8, 12, 16, 32, 48, 64];
 export default function AppearanceConfig() {
     const theme = useTheme();
     return <div className="flex flex-col gap-1 py-1">
         <div className="flex flex-col">
             <h3 className="text-lg">Font Size</h3>
-            <OptionPicker options={fontSizes} value={theme.fontSize} onChange={value => updateTheme({ fontSize: value })} renderOption={(value, selected) => <div style={{ fontSize: value}} className={`flex flex-row h-full items-end ${selected ? 'underline' : ''}`}>
+            <OptionPicker options={fontSizes} value={theme.fontSize} onChange={value => updateTheme({ fontSize: value })} renderOption={(value, selected) => <div style={{ fontSize: value }} className={`flex flex-row h-full items-end ${selected ? 'underline' : ''}`}>
                 {value}
             </div>} />
         </div>
         <div className="flex flex-col">
             <h3 className="text-lg">Line Spacing</h3>
-            <div className="flex gap-2 w-full max-w-xs">
-                <input className="flex-1" type="range" min={100} max={200} step={10} value={theme.lineHeight * 100} onChange={(e) => updateTheme({ lineHeight: parseInt(e.target.value) / 100 ?? 1.4 })} />
-                <span>{theme.lineHeight}</span>
-            </div>
+            <OptionPicker options={lineSpacings} value={theme.lineHeight} onChange={value => updateTheme({ lineHeight: value })} />
         </div>
         <div className="flex flex-col">
             <h3 className="text-lg">Background Color</h3>
@@ -39,6 +39,22 @@ export default function AppearanceConfig() {
             <div className="flex gap-2 w-full">
                 <input className="max-w-xs flex-1" type="color" value={theme.link} onChange={(e) => updateTheme({ link: e.target.value })} />
             </div>
+        </div>
+        <div className="flex flex-col">
+            <h3>Text Align</h3>
+            <OptionPicker value={theme.textAlign} onChange={v => updateTheme({ textAlign: v })} options={textAligns} />
+        </div>
+        <div className="flex flex-col">
+            <h3>Margin Top</h3>
+            <OptionPicker value={theme.marginTop} onChange={v => updateTheme({ marginTop: v })} options={margins} />
+        </div>
+        <div className="flex flex-col">
+            <h3>Margin Sides</h3>
+            <OptionPicker value={theme.marginLeft} onChange={v => updateTheme({ marginLeft: v, marginRight: v })} options={margins} />
+        </div>
+        <div className="flex flex-col">
+            <h3>Margin Bottom</h3>
+            <OptionPicker value={theme.marginBottom} onChange={v => updateTheme({ marginBottom: v })} options={margins} />
         </div>
         <div>
             <Button onClick={() => updateTheme(defaultTheme)}>Reset Appearance</Button>
