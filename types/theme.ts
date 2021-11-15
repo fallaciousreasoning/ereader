@@ -53,7 +53,8 @@ export const getEpubStyles = (theme: Theme) => {
 
         p: {
             'font-family': `${theme.fontFamily} !important`,
-            'font-size': `${theme.fontSize}pt !important`
+            'font-size': `${theme.fontSize}pt !important`,
+            'text-align': `${theme.textAlign} !important`
         },
 
         a: {
