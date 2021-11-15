@@ -18,7 +18,7 @@ class Database extends Dexie {
     constructor() {
         super("store");
 
-        this.version(5)
+        this.version(6)
             .stores({
                 progresses: 'bookId',
                 metadata: 'bookId',
