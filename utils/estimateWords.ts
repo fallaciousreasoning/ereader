@@ -42,3 +42,10 @@ const wordsInText = (text: string) => {
 
     return count;
 }
+
+const wordsInContainer = () => {
+    const container = document.querySelector('.epub-container');
+    const book = container.querySelector('iframe').contentDocument.body;
+    return estimateWords(book, container);
+}
+globalThis.wordsInContainer = wordsInContainer;
