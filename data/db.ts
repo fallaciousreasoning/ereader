@@ -1,5 +1,6 @@
 import Dexie from "dexie";
 import { Metadata } from "../types/metaData";
+import { ReadRate } from "../types/readRate";
 import { Theme } from "../types/theme";
 
 export interface BookEntry {
@@ -14,17 +15,19 @@ class Database extends Dexie {
     progresses: Dexie.Table<{ bookId: string, lastLocation: string, percent: number }, string>;
     images: Dexie.Table<{ id: string, image: Blob }>;
     themes: Dexie.Table<{ id: string } & Theme>;
+    readRates: Dexie.Table<ReadRate>;
 
     constructor() {
         super("store");
 
-        this.version(6)
+        this.version(8)
             .stores({
                 progresses: 'bookId',
                 metadata: 'bookId',
                 books: 'bookId',
                 images: 'id',
-                themes: 'id'
+                themes: 'id',
+                readRates: 'bookId'
             });
     }
 }
