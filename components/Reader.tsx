@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useReadingSpeed } from "../data/readRate";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
+import { useReadRateRecorder } from "../hooks/useReadRateRecorder";
 import useRendition from '../hooks/useRendition';
 import { useWordsOnPage } from "../hooks/useWordsOnPage";
 import useOverlayStore from "../store/useOverlayStore";
@@ -27,7 +28,8 @@ export default function Reader(props: Props) {
     const progress = useBookPercentage(rendition);
     const words = useWordsOnPage(bookElRef, rendition);
     const wordsPerMinute = useReadingSpeed(props.id);
-    console.log("Words", words, "WPM:", );
+    useReadRateRecorder(props.id, bookElRef, rendition);
+    console.log("Words", words, "WPM:", wordsPerMinute);
 
     useEffect(() => {
         if (!rendition) return;

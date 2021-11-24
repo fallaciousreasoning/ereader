@@ -12,7 +12,7 @@ export const recordPageTurn = async (bookId: string, pageTurn: PageTurn) => {
     await db.readRates.put(record);
 }
 
-export const useReadingSpeed = async (bookId: string) => {
+export const useReadingSpeed = (bookId: string) => {
     const readRate = useLiveQuery(() => db.readRates.get(bookId), [bookId]);
     if (!readRate) return 0;
 
