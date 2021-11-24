@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import useBookPercentage from "../hooks/useBookPercentage";
 import { useBook } from "../hooks/usePromise";
 import useRendition from '../hooks/useRendition';
+import { useWordsOnPage } from "../hooks/useWordsOnPage";
 import useOverlayStore from "../store/useOverlayStore";
 import BookControls from "./BookControls";
 import BookMenu from "./BookMenu";
@@ -23,6 +24,8 @@ export default function Reader(props: Props) {
     globalThis.book = book;
 
     const progress = useBookPercentage(rendition);
+    const words = useWordsOnPage(bookElRef, rendition);
+    console.log("Words", words);
 
     useEffect(() => {
         if (!rendition) return;
