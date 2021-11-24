@@ -2,6 +2,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import Reader from "../../components/Reader";
+import { estimateWords} from '../../utils/estimateWords'
+import { intersection, containedPercent } from "../../utils/rect";
 
 export default function Read() {
     const router = useRouter();
@@ -14,3 +16,6 @@ export default function Read() {
         {bookId && <Reader id={bookId} />}
     </div>
 };
+
+globalThis.estimateWords = estimateWords;
+globalThis.containedPercent = containedPercent;

@@ -16,7 +16,7 @@ export const intersection = (r1: DOMRect, r2: DOMRect) => {
         return new DOMRect(leftX, topY, rightX - leftX, bottomY - topY);
 }
 
-export const area = (rect: DOMRect) => rect.x * rect.y;
+export const area = (rect: DOMRect) => rect.width * rect.height;
 
 export const containedPercent = (rect: DOMRect, container: DOMRect) => {
     const intersect = intersection(rect, container);

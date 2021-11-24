@@ -1,14 +1,22 @@
-import { containedPercent } from "./rect";
+import { area, containedPercent } from "./rect";
 
 export const estimateWords = (node: ChildNode): number => {
     if (node.nodeType == node.TEXT_NODE) {
         const r = document.createRange();
         r.selectNode(node);
-        const bounds = r.getBoundingClientRect();
         const window = document.body.getBoundingClientRect();
 
-        const visiblePercent = containedPercent(bounds, window);
+        let totalArea = 0;
+        let visibleArea = 0;
+        for (const rect of r.getClientRects()) {
+            const rectArea = area(rect);
+            totalArea += rectArea;
+            visibleArea += containedPercent(rect, window) * rectArea
+        }
+
+        const visiblePercent = totalArea === 0 ? 0 : visibleArea/totalArea;
         const wordCount = wordsInText(node.textContent);
+        console.log(`Words: ${wordCount}, Visible: ${visiblePercent}, Area: ${totalArea}, Visible: ${visibleArea}`)
 
         const visibleWords = Math.floor(wordCount * visiblePercent);
         return visibleWords;
