@@ -1,29 +1,31 @@
 import { area, containedPercent } from "./rect";
 
-export const estimateWords = (node: ChildNode): number => {
+export const estimateWords = (node: ChildNode, container: Element): number => {
     if (node.nodeType == node.TEXT_NODE) {
         const r = document.createRange();
         r.selectNode(node);
-        const window = document.body.getBoundingClientRect();
+
+        const containerRect = container.getBoundingClientRect();
+        if (container.scrollLeft) containerRect.x += container.scrollLeft;
+        if (container.scrollTop) containerRect.y += container.scrollTop;
 
         let totalArea = 0;
         let visibleArea = 0;
         for (const rect of r.getClientRects()) {
             const rectArea = area(rect);
             totalArea += rectArea;
-            visibleArea += containedPercent(rect, window) * rectArea
+            visibleArea += containedPercent(rect, containerRect) * rectArea
         }
 
-        const visiblePercent = totalArea === 0 ? 0 : visibleArea/totalArea;
+        const visiblePercent = totalArea === 0 ? 0 : visibleArea / totalArea;
         const wordCount = wordsInText(node.textContent);
-        console.log(`Words: ${wordCount}, Visible: ${visiblePercent}, Area: ${totalArea}, Visible: ${visibleArea}`)
 
         const visibleWords = Math.floor(wordCount * visiblePercent);
         return visibleWords;
     }
-    
+
     if (node.nodeType == node.ELEMENT_NODE) {
-        return Array.from(node.childNodes).reduce((prev, next) => prev + estimateWords(next), 0);
+        return Array.from(node.childNodes).reduce((prev, next) => prev + estimateWords(next, container), 0);
     }
 
     return 0;
