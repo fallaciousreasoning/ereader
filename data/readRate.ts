@@ -16,7 +16,6 @@ export const useReadingSpeed = async (bookId: string) => {
     const readRate = useLiveQuery(() => db.readRates.get(bookId), [bookId]);
     if (!readRate) return 0;
 
-    const turns = readRate.pageTurns;
     const middleTurns = middleN(readRate.pageTurns, 5);
     const averageWpm = middleTurns.map(t => wordsPerMinute(t)).reduce((prev, next) => prev + next, 0);
     return averageWpm;
