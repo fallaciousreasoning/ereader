@@ -14,4 +14,4 @@ export interface ReadRate {
 }
 
 export const minPageTurnsForEstimate = 3;
-export const pageTurnsToKeep = 100;
+export const pageTurnsToKeep = 20;
